@@ -1,3 +1,4 @@
-import cityArray from './LocationGroup';
+import cityArray from "./LocationGroup";
+import settings from "./Settings";
 
-export {cityArray}
+export { cityArray, settings };
