@@ -1,0 +1,10 @@
+.weather-canlendar {
+    display: flex;
+    margin-top: 15px;
+    justify-content: space-between;
+}
+
+.weather-data {
+    cursor: pointer;
+    text-align: center;
+}

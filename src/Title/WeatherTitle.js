@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import './WeatherTitle.css';
 
 const getCityName = (CityGroup, selectedCityId) => {
     let cityName = undefined;
@@ -21,7 +22,7 @@ class WeatherTitle extends Component {
     render() {
         const {title} = this.props;
         return (
-            <div>{title}</div>
+            <div className="title">{title}</div>
         );
     }
 }

@@ -1,0 +1,22 @@
+.selected-city .status {
+    font-size: 23px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.selected-city .detail {
+    display: flex;
+    justify-content: space-between;
+}
+
+.selected-city .detail>div:first-of-type {
+    display: flex;
+    font-weight: bold;
+    font-size: 1.25em;
+    align-items: center;
+    width: 60%;
+}
+
+.selected-city .detail>div>div {
+    font-size: 15px;
+    margin: 10px;
+}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SelectedCityWeather from '../SelectedCityWeather/SelectedCityWeather';
 import WeatherCalendar from '../Calendar/WeatherCalendar';
 import { connect } from 'react-redux';
+import { Layout } from 'antd';
 
 const mapStateToProps = (state) => {
     return {
@@ -21,10 +22,10 @@ class WeatherPannel extends Component {
         }
 
         return (
-            <div>
+            <Layout>
                 <SelectedCityWeather />
                 <WeatherCalendar />
-            </div>
+            </Layout>
         );
     }
 }

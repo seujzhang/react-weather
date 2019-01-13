@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Actions } from '../action';
 import { connect } from 'react-redux';
+import { Button } from 'antd';
 
 const mapStateTpProps = (state) => {
     return {
@@ -18,12 +19,12 @@ const mapDispatchToProps = (dispatch) => {
 
 class CitySelector extends Component {
     render() {
-        const {CityGroup, selectedCityId, changeSelectdCity} = this.props;
+        const {CityGroup, changeSelectdCity} = this.props;
         return (
-            <div>
+            <div style={{margin:'12px'}}>
                 {
                     CityGroup.map( (city) => {
-                        return <button key={city.id} onClick={() => changeSelectdCity(city.id)}>{city.name}</button>
+                        return <Button style={{marginLeft: '15px'}} key={city.id} onClick={() => changeSelectdCity(city.id)}>{city.name}</Button>
                     })
                 }
             </div>
