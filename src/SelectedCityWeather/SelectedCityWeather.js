@@ -3,9 +3,6 @@ import React, { Component } from 'react';
 class SelectedCityWeather extends Component {
     render() {
         const {selectedCalendarId,weatherInfo} = this.props;
-        console.log(selectedCalendarId);
-        console.log(weatherInfo);
-        console.log(weatherInfo[selectedCalendarId]);
         const {cond_txt_d,cond_code_d,tmp_min,tmp_max,wind_sc,wind_dir,wind_deg,wind_spd} = weatherInfo[selectedCalendarId];
         return (
             <div>

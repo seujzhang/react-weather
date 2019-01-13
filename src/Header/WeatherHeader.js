@@ -7,8 +7,8 @@ class WeatherHeader extends Component {
     render() {
         return (
             <div>
-                <WeatherTitle title={CityGroup[this.props.selectedCityId].name} />
-                <CitySelector CityGroup={CityGroup} changeSelectdCity={this.props.changeSelectdCity} />
+                <WeatherTitle CityGroup={CityGroup} />
+                <CitySelector CityGroup={CityGroup} />
             </div>
         );
     }

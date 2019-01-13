@@ -1,8 +1,24 @@
 import React, { Component } from 'react';
+import { Actions } from '../action';
+import { connect } from 'react-redux';
+
+const mapStateTpProps = (state) => {
+    return {
+        selectedCityId: state.selectedCityId
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        changeSelectdCity: (selectedCityId) => {
+            dispatch(Actions.fetchData(selectedCityId));
+        }
+    }
+}
 
 class CitySelector extends Component {
     render() {
-        const {CityGroup, changeSelectdCity} = this.props;
+        const {CityGroup, selectedCityId, changeSelectdCity} = this.props;
         return (
             <div>
                 {
@@ -15,4 +31,5 @@ class CitySelector extends Component {
     }
 }
 
-export default CitySelector;
+
+export default connect(mapStateTpProps, mapDispatchToProps)(CitySelector);

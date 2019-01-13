@@ -30,4 +30,4 @@ let ComstumLogMiddleWare = ({dispatch, getState}) => {
     }
 }
 
-export default { ComstumThunkMiddleWare, ComstumLogMiddleWare }; 
+export { ComstumThunkMiddleWare, ComstumLogMiddleWare }; 

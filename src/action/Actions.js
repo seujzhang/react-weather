@@ -1,51 +1,74 @@
-import { ActionTypes } from "./ActionTypes";
+import * as ActionTypes from "./ActionTypes";
+import { cityArray as CityGroup, settings } from "../Utils";
 
-export const updateLocation = (locationId) => {
-    return {
-        type: ActionTypes.UPDATELOCATION,
-        locationId: locationId
+export const updateLocation = selectedCityId => {
+  return {
+    type: ActionTypes.UPDATELOCATION,
+    selectedCityId: selectedCityId
+  };
+};
+
+export const updateCalendar = calendarId => {
+  return {
+    type: ActionTypes.UPDATECALENDAR,
+    calendarId: calendarId
+  };
+};
+
+export const fetchDataStart = selectedCityId => {
+  return {
+    type: ActionTypes.FETCHDATASTART,
+    weatherInfo: "Loading",
+    selectedCityId: selectedCityId
+  };
+};
+
+export const fetchDataSuccess = (selectedCityId, weatherInfo) => {
+  return {
+    type: ActionTypes.FETCHDATASUCCESS,
+    weatherInfo: weatherInfo,
+    selectedCityId: selectedCityId
+  };
+};
+
+export const fetchDataFail = selectedCityId => {
+  return {
+    type: ActionTypes.FETCHDATAFAILED,
+    weatherInfo: "Get data failed!",
+    selectedCityId: selectedCityId
+  };
+};
+
+export const fetchData = selectedCityId => {
+  return (dispatch, getState) => {
+    if (selectedCityId === getState().selectedCityId) {
+      return;
     }
-}
 
-export const updateCalendar = (calendarId) => {
-    return {
-        type: ActionTypes.UPDATECALENDAR,
-        calendarId: calendarId
+    let cityCode = undefined;
+    CityGroup.forEach(item => {
+      if (selectedCityId === item.id) {
+        cityCode = item.code;
+      }
+    });
+
+    if (!cityCode) {
+      dispatch(fetchDataFail(selectedCityId));
     }
-}
 
-export const fetchDataStart = (locationId) => {
-    return {
-        type: ActionTypes.FETCHDATASTART,
-        weatherInfo: 'Loading',
-        locationId: locationId
-    }
-}
+    dispatch(fetchDataStart(selectedCityId));
 
-export const fetchDataSuccess = (locationId, weatherInfo) => {
-    return {
-        type: ActionTypes.FETCHDATASUCCESS,
-        weatherInfo: weatherInfo,
-        locationId: locationId
-    }
-}
-
-export const fetchDataFail = (locationId) => {
-    return {
-        type: ActionTypes.FETCHDATAFAILED,
-        weatherInfo: 'Get data failed!',
-        locationId: locationId
-    }
-}
-
-export const fetchData = (locationId) => {
-    const requestUrl = `/weather/forecast?location=${CityGroup[locationId].code}&key=${settings.key}`;
-    fetch(requestUrl).then((response) => {
-        if(response.status !== 200) {
-            return; 
-        }
-        response.json().then((rspJson) => {
-            return rspJson.HeWeather6[0].daily_forecast;
-        })
-    })
-}
+    const requestUrl = `/weather/forecast?location=${cityCode}&key=${settings.key}`;
+    fetch(requestUrl).then(response => {
+      if (response.status !== 200) {
+        dispatch(fetchDataFail(selectedCityId));
+        return;
+      }
+      response.json().then(rspJson => {
+        dispatch(fetchDataSuccess(selectedCityId, rspJson.HeWeather6[0].daily_forecast))
+      }).catch((error) => {
+        dispatch(fetchDataFail(selectedCityId));
+      });
+    });
+  };
+};

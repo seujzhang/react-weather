@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import WeatherHeader from './Header/WeatherHeader';
 import WeatherPannel from './Pannel/WeatherPannel';
 import {cityArray as CityGroup, settings} from './Utils';
+import {Provider} from 'react-redux';
+import store from './Stores';
+import { Actions } from './action';
 
 class App extends Component {
 
@@ -9,7 +12,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      selectedCityId: 0,
+      //selectedCityId: 0,
       selectedCalendarId: 0,
       weatherInfo: [{"cond_code_d":"100",
       "cond_code_n":"100",
@@ -36,19 +39,20 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const requestUrl = `/weather/forecast?location=${CityGroup[this.state.selectedCityId].code}&key=${settings.key}`;
-    fetch(requestUrl).then((response) => {
-      if(response.status !== 200) {
-        console.log('Fetch data fail!');
-        return; 
-      }
-      response.json().then((rspJson) => {
-        console.log(rspJson.HeWeather6[0].daily_forecast);
-        this.setState({
-          weatherInfo: rspJson.HeWeather6[0].daily_forecast
-        })
-      })
-    })
+    // const requestUrl = `/weather/forecast?location=${CityGroup[this.state.selectedCityId].code}&key=${settings.key}`;
+    // fetch(requestUrl).then((response) => {
+    //   if(response.status !== 200) {
+    //     console.log('Fetch data fail!');
+    //     return; 
+    //   }
+    //   response.json().then((rspJson) => {
+    //     console.log(rspJson.HeWeather6[0].daily_forecast);
+    //     this.setState({
+    //       weatherInfo: rspJson.HeWeather6[0].daily_forecast
+    //     })
+    //   })
+    // })
+    store.dispatch(Actions.fetchData(CityGroup[0].id));
   }
 
   changeSelectdCity(id) {
@@ -76,10 +80,10 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <WeatherHeader selectedCityId={this.state.selectedCityId} changeSelectdCity={(id) => this.changeSelectdCity(id)} />
+      <Provider store={store}>
+        <WeatherHeader />
         <WeatherPannel weatherInfo={this.state.weatherInfo} selectedCalendarId={this.state.selectedCalendarId} changeSelectedCalendar={(id) => this.changeSelectedCalendar(id)} />
-      </div>
+      </Provider>
     );
   }
 }
