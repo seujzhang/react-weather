@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => {
+    return {
+        selectedWeatherInfo: state.weatherInfo[state.selectedCalendarId]
+    }
+}
 
 class SelectedCityWeather extends Component {
     render() {
-        const {selectedCalendarId,weatherInfo} = this.props;
-        const {cond_txt_d,cond_code_d,tmp_min,tmp_max,wind_sc,wind_dir,wind_deg,wind_spd} = weatherInfo[selectedCalendarId];
+        const {selectedWeatherInfo} = this.props;
+        const {cond_txt_d,cond_code_d,tmp_min,tmp_max,wind_sc,wind_dir,wind_deg,wind_spd} = selectedWeatherInfo;
         return (
             <div>
                 <div>{cond_txt_d}</div>
@@ -21,4 +28,4 @@ class SelectedCityWeather extends Component {
     }
 }
 
-export default SelectedCityWeather;
+export default connect(mapStateToProps)(SelectedCityWeather);

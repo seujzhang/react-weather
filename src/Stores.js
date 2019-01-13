@@ -3,9 +3,9 @@ import {createStore, compose, applyMiddleware} from 'redux';
 import { ComstumThunkMiddleWare, ComstumLogMiddleWare } from './customMiddleWares';
 
 const initvalues = {
-    selectedCityId: 0,
+    selectedCityId: -1,
     selectedCalendarId: 0,
-    weatherInfo: {}
+    weatherInfo: undefined
 }
 
 const middleWares = [ComstumThunkMiddleWare, ComstumLogMiddleWare];

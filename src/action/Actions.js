@@ -8,17 +8,17 @@ export const updateLocation = selectedCityId => {
   };
 };
 
-export const updateCalendar = calendarId => {
+export const updateCalendar = selectedCalendarId => {
   return {
     type: ActionTypes.UPDATECALENDAR,
-    calendarId: calendarId
+    selectedCalendarId: selectedCalendarId
   };
 };
 
 export const fetchDataStart = selectedCityId => {
   return {
     type: ActionTypes.FETCHDATASTART,
-    weatherInfo: "Loading",
+    weatherInfo: "Loading...",
     selectedCityId: selectedCityId
   };
 };

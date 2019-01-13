@@ -1,4 +1,22 @@
 import React, { Component } from 'react';
+import { Actions } from '../action';
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => {
+    return {
+        weatherInfo: state.weatherInfo
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        changeSelectedCalendar: (selectedCalendarId) => {
+            dispatch(Actions.updateCalendar(selectedCalendarId))
+        }
+    }
+}
+
+
 
 class WeatherCalendar extends Component {
     render() {
@@ -23,4 +41,4 @@ class WeatherCalendar extends Component {
     }
 }
 
-export default WeatherCalendar;
+export default connect(mapStateToProps, mapDispatchToProps)(WeatherCalendar);
